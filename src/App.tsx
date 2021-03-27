@@ -5,10 +5,12 @@ import Course from './pages/Course';
 import Courses from './pages/Courses';
 import Home from './pages/Home';
 
+import Container from '@material-ui/core/Container';
+
 function App() {
   return (
     <Router>
-      <div>
+      <Container>
         <Switch>
           <Route path='/courses/:id'>
             <Course />
@@ -20,7 +22,7 @@ function App() {
             <Home />
           </Route>
         </Switch>
-      </div>
+      </Container>
     </Router>
   );
 }

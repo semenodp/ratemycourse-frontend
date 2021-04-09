@@ -1,19 +1,24 @@
 import React from 'react';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Course from './pages/Course';
 import Courses from './pages/Courses';
 import Home from './pages/Home';
+import { styled } from '@material-ui/core/styles';
 
 import Container from '@material-ui/core/Container';
+import CoursePage from './pages/Course';
+
+const Wrapper = styled(Container)({
+  height: '100%',
+});
 
 function App() {
   return (
     <Router>
-      <Container>
+      <Wrapper>
         <Switch>
           <Route path='/courses/:id'>
-            <Course />
+            <CoursePage />
           </Route>
           <Route path='/courses'>
             <Courses />
@@ -22,7 +27,7 @@ function App() {
             <Home />
           </Route>
         </Switch>
-      </Container>
+      </Wrapper>
     </Router>
   );
 }

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 
 const Home: FC = () => {
   return (
@@ -14,8 +15,8 @@ const Home: FC = () => {
         color: 'blue',
       }}
     >
-      <Typography variant='h3'>Can’t choose class?</Typography>
-      <Typography variant='h5'>See rated course and make a rational decision</Typography>
+      <Typography variant='h3'>Can’t choose a course?</Typography>
+      <Link href='/courses'>See rated courses and make a rational decision</Link>
     </div>
   );
 };

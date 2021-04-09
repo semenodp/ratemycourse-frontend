@@ -5,6 +5,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FC } from 'react';
 import { Course, Rating } from '../interfaces';
+import RatingModal from '../components/RatingModal';
 
 const useStyles = makeStyles({
   button: {
@@ -33,6 +34,14 @@ const useStyles = makeStyles({
 
 const CoursePage: FC = () => {
   const { id } = useParams<{ id: string }>();
+  const [open, setOpen] = useState(false);
+  const classes = useStyles();
+  const [loading, setLoading] = useState(true);
+  const [course, setCourse] = useState<Course>();
+
+  const toggleModal = () => {
+    setOpen(!open);
+  };
 
   async function getCourse() {
     try {
@@ -64,9 +73,6 @@ const CoursePage: FC = () => {
     return 0;
   }
 
-  const classes = useStyles();
-  const [loading, setLoading] = useState(true);
-  const [course, setCourse] = useState<Course>();
   return loading ? (
     <div>Loading data</div>
   ) : (
@@ -81,7 +87,9 @@ const CoursePage: FC = () => {
             <Typography>{`Avg. Rating ${calculateAverageRating(course?.ratings)}`}</Typography>
           </Grid>
         </Grid>
-        <Button className={classes.button}>Rate it</Button>
+        <Button className={classes.button} onClick={toggleModal}>
+          Rate it
+        </Button>
       </Grid>
       <Grid container spacing={2}>
         {course?.ratings.map((rating) => (
@@ -105,6 +113,7 @@ const CoursePage: FC = () => {
           </Grid>
         ))}
       </Grid>
+      <RatingModal open={open} toggleModal={toggleModal} />
     </Grid>
   );
 };

@@ -43,6 +43,10 @@ const CoursePage: FC = () => {
     setOpen(!open);
   };
 
+  const toggleLoading = (value: boolean) => {
+    setLoading(value);
+  };
+
   async function getCourse() {
     try {
       const response = await axios.get(`http://localhost:5000/api/v1/courses/${id}`);
@@ -57,8 +61,17 @@ const CoursePage: FC = () => {
     getCourse();
   }, []);
 
+  function handleAddNewRating(rating: Rating) {
+    if (course) {
+      setCourse({
+        ...course,
+        ratings: [...course.ratings, rating],
+      });
+    }
+  }
+
   function calculateAverageRating(ratings: Rating[] | undefined) {
-    if (ratings) {
+    if (ratings && ratings.length > 0) {
       const avg = ratings.reduce((total, rating) => total + rating.rating, 0) / ratings.length;
       return Math.round((avg + Number.EPSILON) * 100) / 100;
     }
@@ -66,7 +79,7 @@ const CoursePage: FC = () => {
   }
 
   function calculateAverageDiff(ratings: Rating[] | undefined) {
-    if (ratings) {
+    if (ratings && ratings.length > 0) {
       const avg = ratings.reduce((total, rating) => total + rating.difficulty, 0) / ratings.length;
       return Math.round((avg + Number.EPSILON) * 100) / 100;
     }
@@ -113,7 +126,14 @@ const CoursePage: FC = () => {
           </Grid>
         ))}
       </Grid>
-      <RatingModal open={open} toggleModal={toggleModal} />
+      <RatingModal
+        open={open}
+        toggleModal={toggleModal}
+        toggleLoading={toggleLoading}
+        addNewRating={handleAddNewRating}
+        courseName={course!.name}
+        courseID={course!.id}
+      />
     </Grid>
   );
 };

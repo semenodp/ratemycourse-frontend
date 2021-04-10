@@ -12,4 +12,5 @@ export interface Rating {
   difficulty: number;
   takeAgain: boolean;
   professor: string;
+  upvotes: number;
 }

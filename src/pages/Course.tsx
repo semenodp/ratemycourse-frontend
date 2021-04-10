@@ -30,6 +30,15 @@ const useStyles = makeStyles({
     cursor: 'pointer',
     textDecoration: 'none',
   },
+  upvoteButton: {
+    padding: '0px 12px',
+    width: '66px',
+    height: '32px',
+    background: '#074EE8',
+    borderRadius: '32px',
+    color: '#FFFFFF',
+    fontSize: '12px',
+  },
 });
 
 const CoursePage: FC = () => {
@@ -86,6 +95,29 @@ const CoursePage: FC = () => {
     return 0;
   }
 
+  const upvoteRating = (ratingId: string) => async (event: any) => {
+    toggleLoading(true);
+    const response = await axios.patch(
+      `http://localhost:5000/api/v1/ratings/${ratingId}/upvote`,
+      {},
+    );
+    let updateRating = response.data;
+    if (course) {
+      setCourse({
+        ...course,
+        ratings: course.ratings.map((rating: Rating) => {
+          if ((rating.id as string) === (ratingId as string)) {
+            return updateRating as Rating;
+          } else {
+            return rating;
+          }
+        }),
+      });
+    }
+
+    toggleLoading(false);
+  };
+
   return loading ? (
     <div>Loading data</div>
   ) : (
@@ -121,6 +153,12 @@ const CoursePage: FC = () => {
                 <Grid container direction='row' justify='space-between' alignItems='center'>
                   Professor: {rating.professor}
                 </Grid>
+                <Grid container direction='row' justify='space-between' alignItems='center'>
+                  Upvotes: {rating.upvotes}
+                </Grid>
+                <Button className={classes.upvoteButton} onClick={upvoteRating(rating.id)}>
+                  Upvote
+                </Button>
               </CardContent>
             </Card>
           </Grid>

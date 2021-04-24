@@ -43,7 +43,7 @@ const Courses: FC = () => {
 
   async function getAllCourses() {
     try {
-      const response = await axios.get('http://localhost:5000/api/v1/courses');
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/courses`);
       setCourses(response.data);
       setLoading(false);
     } catch (error) {

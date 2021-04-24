@@ -58,7 +58,7 @@ const CoursePage: FC = () => {
 
   async function getCourse() {
     try {
-      const response = await axios.get(`http://localhost:5000/api/v1/courses/${id}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/courses/${id}`);
       setCourse(response.data);
       setLoading(false);
     } catch (error) {
@@ -98,7 +98,7 @@ const CoursePage: FC = () => {
   const upvoteRating = (ratingId: string) => async (event: any) => {
     toggleLoading(true);
     const response = await axios.patch(
-      `http://localhost:5000/api/v1/ratings/${ratingId}/upvote`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/v1/ratings/${ratingId}/upvote`,
       {},
     );
     let updateRating = response.data;
@@ -114,7 +114,6 @@ const CoursePage: FC = () => {
         }),
       });
     }
-
     toggleLoading(false);
   };
 

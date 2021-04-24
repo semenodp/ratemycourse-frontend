@@ -116,7 +116,7 @@ export default function RatingModal({
   async function submitRating() {
     try {
       toggleLoading(true);
-      const response = await axios.post(`http://localhost:5000/api/v1/ratings`, {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/ratings`, {
         professor: professorName,
         difficulty: courseDifficulty,
         rating: courseDifficulty,

@@ -68,6 +68,7 @@ const CoursePage: FC = () => {
 
   useEffect(() => {
     getCourse();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleAddNewRating(rating: Rating) {

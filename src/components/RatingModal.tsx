@@ -119,7 +119,7 @@ export default function RatingModal({
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/ratings`, {
         professor: professorName,
         difficulty: courseDifficulty,
-        rating: courseDifficulty,
+        rating: courseRating,
         takeAgain: takeAgain,
         courseID: courseID,
       });

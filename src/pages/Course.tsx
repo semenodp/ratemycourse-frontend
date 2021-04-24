@@ -145,7 +145,7 @@ const CoursePage: FC = () => {
                   Rating: {rating.rating}
                 </Grid>
                 <Grid container direction='row' justify='space-between' alignItems='center'>
-                  Difficulty: {rating.rating}
+                  Difficulty: {rating.difficulty}
                 </Grid>
                 <Grid container direction='row' justify='space-between' alignItems='center'>
                   Take again: {rating.takeAgain ? 'Yes' : 'No'}
